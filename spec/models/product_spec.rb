@@ -9,7 +9,7 @@ describe Product do
     )
 
     pt_subs = ProductType.new(
-        price: 35,
+        price: 20,
         pr_type: "subscription",
         name: "Teach course"
     )
@@ -44,6 +44,18 @@ describe Product do
                 product_type: pt_subs
             )
             expect(s.valid?).to be true
+        end
+
+        it "Should calculate the price properly" do 
+            s = Subscription.new(
+                start_date: Date.today,
+                end_date: Date.today + 7.days,
+                order: o,
+                product_type: pt_subs
+            )
+
+            expect(s.set_price).to eq 100
+
         end
 
     end
@@ -106,6 +118,20 @@ describe Product do
             expect(s.valid?).to be false
         end
 
+        it "Should calculate the price properly" do 
+            s = Service.new(
+                start_time: 9,
+                end_time: 12,
+                day_of_week: 3,
+                number_of_weeks: 2,
+                order: o,
+                product_type: pt_serv
+            )
+
+            expect(s.set_price).to eq 210
+
+        end
+
     end
 
     context 'When testing the Good class' do 
@@ -125,6 +151,17 @@ describe Product do
                 product_type: pt_good
             )
             expect(g.valid?).to be true
+        end
+
+        it "Should calculate the price properly" do 
+
+            g = Good.new(
+                number: 2,
+                order: o,
+                product_type: pt_good
+            )
+        
+            expect(g.set_price).to eq 70 
         end
 
     end
