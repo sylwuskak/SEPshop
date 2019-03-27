@@ -38,9 +38,12 @@ gem 'pg', '0.18.2'
 
 gem 'slim', '~> 3.0.7'
 gem 'slim-rails', '~> 3.1.1'
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
+
+gem 'rspec', '~> 3.0'
+gem 'rspec-rails',      ">= 2.0.0"
 
 
 group :development, :test do
