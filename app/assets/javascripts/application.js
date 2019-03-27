@@ -14,3 +14,9 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+// require bootstrap-sprockets
+// require bootstrap
+//= require bootstrap/modal
+//= require bootstrap-datepicker
+//= require bootstrap/dropdown
+//= require bootstrap/alert

@@ -1,0 +1,23 @@
+.layout__content
+  h2 New order
+  = form_for :order, url: orders_path, turboboost: true, method: :post  do |f|
+    .row
+      .col-md-6
+        .form-group
+          = f.label :user_name, "User name"
+          = f.text_field :user_name, class: 'form-control'
+      .col-md-6
+        .form-group
+          = f.label :user_password, "Password"
+          = f.text_field :user_password, type: 'password', class: 'form-control'
+    .row
+      .col-md-6
+        .form-group
+          = f.label :user_email, "Email"
+          = f.text_field :user_email, class: 'form-control'
+      .col-md-6
+        .form-group
+          = f.label :user_phone_number, "Phone number"
+          = f.text_field :user_phone_number, class: 'form-control'
+
+    button.btn.custom-btn type="submit" Continue

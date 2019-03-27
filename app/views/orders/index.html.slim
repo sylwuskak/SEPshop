@@ -1,0 +1,17 @@
+.layout__content
+  h2 List of orders
+  table.table.table-hover 
+    thead
+      tr
+        th Order number
+        th User name
+        th Total cost
+        th
+      tbody
+        - @orders.each do |order|
+          tr
+            td=order.id
+            td=order.user_name
+            td=order.total_cost
+            td= link_to 'Show', edit_order_path(order.id)
+  =link_to 'New order', new_order_path, class: 'button'
