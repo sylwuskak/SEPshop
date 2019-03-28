@@ -1,6 +1,6 @@
 .layout__content
   h2 Edit order
-  = form_for :order, url: order_path(@order), turboboost: true, method: :post  do |f|
+  = form_for :order, url: order_path(@order), turboboost: true, method: :patch  do |f|
     .row
       .col-md-6
         .form-group
@@ -20,4 +20,66 @@
           = f.label :user_phone_number, "Phone number"
           = f.text_field :user_phone_number, class: 'form-control'
 
-    button.btn.custom-btn type="submit" Continue
+    .row  
+      .col-md-6
+        = link_to "New subscription", "#add_subscription", "data-toggle" => "modal", class: "btn btn-default" 
+        = link_to "New service", "#add_service", "data-toggle" => "modal", class: "btn btn-default"
+        = link_to "New good", "#add_good", "data-toggle" => "modal", class: "btn btn-default"
+
+    h4 Products
+
+    .panel.panel-default
+      .panel-heading
+        b Products
+        .pull-right
+          = "Price: #{@order.total_cost}"
+      .panel-body    
+        - @products.each do |product|
+          .panel.panel-default
+            .panel-heading
+              b=product.product_type.name
+              .pull-right
+                = "Price: #{product.price}"
+            .panel-body
+              - if product.is_a? Subscription
+                .row
+                  .col-md-3
+                    i Start date
+                  .col-md-3
+                    = product.start_date
+                  .col-md-3
+                    i End date
+                  .col-md-3
+                    = product.end_date
+              - elsif product.is_a? Service
+                .row
+                  .col-md-3
+                    i Start time
+                  .col-md-3
+                    = product.start_time
+                  .col-md-3
+                    i End time
+                  .col-md-3
+                    = product.end_time
+                .row
+                  .col-md-3
+                    i Day of week
+                  .col-md-3
+                   = @days_of_week[product.day_of_week-1][0]
+                  .col-md-3
+                    i Number of weeks
+                  .col-md-3
+                    = product.number_of_weeks
+              - elsif product.is_a? Good
+                .row
+                  .col-md-3
+                    i Number
+                  .col-md-3
+                   = product.number
+
+    button.btn.btn-primary type="submit" Save
+    = link_to 'Orders list', orders_path, class: "btn btn-default"
+
+= render "add_subscription"
+= render "add_service"
+= render "add_good"

@@ -3,8 +3,10 @@ class Order < ActiveRecord::Base
 
     validates :user_name, :user_password, :user_email, :user_phone_number, presence: true
 
-    def set_price(props)
-        self.products.each {|p| p.set_price}
+    def set_price(product)
+        product.set_price
+        product.save!
+
         self.total_cost = self.products.map{|p| p.price.to_i}.sum
     end
 end

@@ -45,6 +45,7 @@ gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
 gem 'rspec', '~> 3.0'
 gem 'rspec-rails',      ">= 2.0.0"
 
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -45,7 +45,8 @@ describe Order do
             p1 = Subscription.new(
                 start_date: Date.today,
                 end_date: Date.today + 7.days,
-                product_type: pt_subs
+                product_type: pt_subs,
+                price: 0
             )
 
             p2 = Service.new(
@@ -53,9 +54,10 @@ describe Order do
                 end_time: 12,
                 day_of_week: 3,
                 number_of_weeks: 2,
-                product_type: pt_serv
+                product_type: pt_serv,
+                price: 0
             )
-
+            
             o.products << p1
             o.products << p2
             o.save!

@@ -1,10 +1,20 @@
 class OrdersController < ApplicationController
     def index
-        @orders = Order.all.order(id: :desc)
+        @orders = Order.all.order(id: :desc)    
     end
 
     def edit 
         @order = Order.find params["id"]
+        @products = @order.products.includes(:product_type)
+        @days_of_week = [
+            ["Monday", 1],
+            ["Tuesday", 2],
+            ["Wednesday", 3],
+            ["Thursday", 4],
+            ["Friday", 5],
+            ["Saturday", 6],
+            ["Sunday", 7]
+        ]
     end
 
     def new
@@ -15,24 +25,23 @@ class OrdersController < ApplicationController
         begin
             o = Order.new(order_params)
             o.save!
-            redirect_to order_path(o)
+            redirect_to edit_order_path(o)
         rescue => e
-            flash[:danger] = "Order saving failed"
+            flash[:danger] = "Order saving failed  #{e.inspect}"
             redirect_to new_order_path
         end
-      
     end
 
     def update
-        begin    
-            @order = Order.find(params[:id])
+        @order = Order.find(params[:id])
+        begin
             @order.update!(edit_order_params)
-            redirect_to orders_path
+            flash[:success] = "Order update"
+            redirect_to edit_order_path(@order)
         rescue => e
-            flash[:danger] = "Order update'ing failure"
-            redirect_to order_path(o)
+            flash[:danger] = "Order update'ing failure #{e.inspect}"
+            redirect_to edit_order_path(@order)
         end
-          
     end
 
     private

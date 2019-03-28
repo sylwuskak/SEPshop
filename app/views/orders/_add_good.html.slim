@@ -1,0 +1,23 @@
+= form_for :good, url: products_path, turboboost: true, method: :post  do |f|
+  = hidden_field_tag 'order_id', @order.id
+  .modal.fade id="add_good" tabindex="-1" role="dialog"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header Add good
+        .modal-body
+          .row
+            .col-md-6
+              .form-group
+                = f.label :product_type_id, 'Product'
+                = f.select :product_type_id, ProductType.select{|p| p.pr_type == "good"}.map{|p| [p.name + ", price: " + p.price.to_s, p.id]}, {}, {class: 'form-control'}
+            .col-md-6
+              .form-group
+                = f.label :number, 'Number'
+                = f.number_field :number, class: 'form-control'
+
+        .modal-footer
+          button.btn.btn-default type="submit" 
+            | Save
+          button.btn.btn-default data-dismiss="modal" 
+            | Cancel
+

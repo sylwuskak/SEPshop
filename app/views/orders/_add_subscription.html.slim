@@ -1,0 +1,27 @@
+= form_for :subscription, url: products_path, turboboost: true, method: :post  do |f|
+  = hidden_field_tag 'order_id', @order.id
+  .modal.fade id="add_subscription" tabindex="-1" role="dialog"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header Add subscription
+        .modal-body
+          .row
+            .col-md-12
+              .form-group
+                = f.label :product_type_id, 'Product'
+                = f.select :product_type_id, ProductType.select{|p| p.pr_type == "subscription"}.map{|p| [p.name + ", price per day: " + p.price.to_s, p.id]}, {}, {class: 'form-control'}
+          .row
+            .col-md-6
+              .form-group
+                = f.label :start_date, 'Start date'
+                = f.text_field :start_date, class: 'form-control datepicker', data: {provide: 'datepicker'}
+            .col-md-6
+              .form-group
+                = f.label :end_date, 'End date'
+                = f.text_field :end_date, class: 'form-control datepicker', data: {provide: 'datepicker'}
+          
+        .modal-footer
+          button.btn.btn-default type="submit" 
+            | Save
+          button.btn.btn-default data-dismiss="modal" 
+            | Cancel
