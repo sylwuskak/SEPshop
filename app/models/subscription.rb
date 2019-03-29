@@ -1,5 +1,6 @@
 class Subscription < Product
     validates :start_date, :end_date, presence: true
+    validates_with SubscriptionValidator
 
     def set_price
         self.price = self.product_type.price * self.business_days

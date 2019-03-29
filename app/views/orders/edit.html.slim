@@ -79,6 +79,7 @@
 
     button.btn.btn-primary type="submit" Save
     = link_to 'Orders list', orders_path, class: "btn btn-default"
+    = link_to 'Delete order', order_path(@order), class: 'btn btn-default', method: :delete, data: {confirm: "Do you really want to delete this order?"}
 
 = render "add_subscription"
 = render "add_service"

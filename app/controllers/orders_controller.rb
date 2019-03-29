@@ -39,8 +39,18 @@ class OrdersController < ApplicationController
             flash[:success] = "Order update"
             redirect_to edit_order_path(@order)
         rescue => e
-            flash[:danger] = "Order update'ing failure #{e.inspect}"
+            flash[:danger] = "Order updating failure #{e.inspect}"
             redirect_to edit_order_path(@order)
+        end
+    end
+
+    def destroy
+        begin
+            Order.destroy(params[:id])
+            redirect_to orders_path
+        rescue => e 
+            flash[:danger] = "Order deleting failure #{e.inspect}"
+            redirect_to edit_order_path(params[:id])
         end
     end
 

@@ -23,6 +23,16 @@ class ProductsController < ApplicationController
         redirect_to edit_order_path(o)
     end
 
+    def destroy
+        begin
+            order = Product.find(params[:id]).order
+            Product.destroy(params[:id])
+        rescue => e
+
+        end
+        redirect_to order_path(order)
+    end
+
     private
     def subscription_params
         params.require(:subscription).permit(:start_date, :end_date, :product_type_id)  

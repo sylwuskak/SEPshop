@@ -46,6 +46,17 @@ describe Product do
             expect(s.valid?).to be true
         end
 
+        it "Should not be valid with end date smaller than start date" do
+
+            s = Subscription.new(
+                start_date: Date.today,
+                end_date: Date.today - 7.days,
+                order: o,
+                product_type: pt_subs
+            )
+            expect(s.valid?).to be false
+        end
+
         it "Should calculate the price properly" do 
             s = Subscription.new(
                 start_date: Date.today,
@@ -118,6 +129,18 @@ describe Product do
             expect(s.valid?).to be false
         end
 
+        it "Should not be valid with end time smaller than start time" do
+            s = Service.new(
+                start_time: 15,
+                end_time: 12,
+                day_of_week: 8,
+                number_of_weeks: 6,
+                order: o,
+                product_type: pt_serv
+            )
+            expect(s.valid?).to be false
+        end
+
         it "Should calculate the price properly" do 
             s = Service.new(
                 start_time: 9,
@@ -162,6 +185,15 @@ describe Product do
             )
         
             expect(g.set_price).to eq 70 
+        end
+
+        it 'Should not be valid with wrong product type' do 
+            g = Good.new(
+                number: 3,
+                order: o,
+                product_type: pt_serv
+            )
+            expect(g.valid?).to be false
         end
 
     end
